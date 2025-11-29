@@ -1,0 +1,33 @@
+@keyframes bounce-slow {
+    0%, 100% { transform: translateY(-5%); }
+    50% { transform: translateY(5%); }
+}
+.animate-bounce-slow {
+    animation: bounce-slow 3s infinite ease-in-out;
+}
+
+
+.forecast-card {
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+}
+.forecast-card:hover {
+    transform: translateY(-5px);
+    border-color: #4F46E5; 
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+
+::-webkit-scrollbar {
+    width: 6px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 10px;
+}
+.dark ::-webkit-scrollbar-thumb {
+    background: #475569;
+}

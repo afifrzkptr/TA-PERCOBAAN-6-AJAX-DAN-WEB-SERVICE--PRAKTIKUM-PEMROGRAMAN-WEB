@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CuacaKita - Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#4F46E5', 
+                        secondary: '#10B981', 
+                        darkbg: '#0f172a',
+                        cardlight: '#ffffff',
+                        carddark: '#1e293b'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gray-100 dark:bg-darkbg text-gray-800 dark:text-gray-100 transition-colors duration-300 font-sans min-h-screen">
+
+    <nav class="bg-white dark:bg-carddark shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center gap-2">
+                    <span class="font-bold text-xl tracking-tight">CuacaKita</span>
+                </div>
+                
+                <div class="hidden md:block flex-1 max-w-md mx-8 relative">
+                    <input type="text" id="cityInputDesktop" placeholder="🔍 Cari kota..." 
+                           class="w-full pl-4 pr-10 py-2 rounded-full border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-primary transition">
+                    <div id="suggestionsDesktop" class="absolute w-full mt-1 bg-white dark:bg-gray-800 rounded-lg shadow-xl hidden z-50 overflow-hidden border border-gray-200 dark:border-gray-700"></div>
+                </div>
+
+                <div class="flex items-center gap-3">
+                    <button id="unitToggle" class="px-3 py-1 rounded-md bg-gray-200 dark:bg-gray-700 font-semibold text-sm hover:bg-gray-300 transition">
+                        °C
+                    </button>
+                    <button id="themeToggle" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition">
+                        <span id="iconSun" class="hidden">☀️</span>
+                        <span id="iconMoon">🌙</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="md:hidden p-4 bg-white dark:bg-carddark shadow-sm relative">
+        <input type="text" id="cityInputMobile" placeholder="🔍 Cari kota..." class="w-full p-2 rounded-lg border dark:bg-gray-700 dark:border-gray-600">
+        <div id="suggestionsMobile" class="absolute left-0 right-0 mt-1 mx-4 bg-white dark:bg-gray-800 rounded-lg shadow-xl hidden z-50"></div>
+    </div>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        <div class="flex flex-col md:flex-row justify-between items-end mb-6 gap-4 border-b border-gray-200 dark:border-gray-700 pb-4">
+            <div>
+                <h1 id="locationDisplay" class="text-3xl font-extrabold text-primary dark:text-indigo-400">Memuat Lokasi...</h1>
+                <p id="dateDisplay" class="text-sm text-gray-500 dark:text-gray-400 mt-1">--</p>
+            </div>
+            <div class="flex items-center gap-4">
+                <button id="favBtn" class="flex items-center gap-2 px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 transition">
+                    <span id="favIcon">☆</span> <span>Simpan Kota</span>
+                </button>
+                <button id="refreshBtn" class="bg-primary hover:bg-indigo-700 text-white px-4 py-2 rounded-lg shadow transition flex items-center gap-2">
+                    <i class="fas fa-sync-alt"></i>
+                    <span>Refresh</span>
+                </button>
+            </div>
+        </div>
+
+        <div id="favoritesSection" class="mb-8 hidden">
+            <h3 class="text-xs font-bold uppercase text-gray-400 mb-2 tracking-wider">Favorit</h3>
+            <div id="favList" class="flex flex-wrap gap-2"></div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            <div class="lg:col-span-1">
+                <div class="bg-white dark:bg-carddark rounded-2xl p-6 shadow-lg border-l-4 border-primary relative overflow-hidden">
+                    <div class="relative z-10">
+                        <div class="flex justify-between items-start">
+                            <span class="bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200 text-xs px-2 py-1 rounded font-bold">SAAT INI</span>
+                            <span id="updateTimestamp" class="text-xs text-gray-400">Update: --</span>
+                        </div>
+                        
+                        <div class="mt-6 flex flex-col items-center text-center">
+                            <div id="weatherIcon" class="text-8xl mb-2 animate-bounce-slow">☁️</div>
+                            <h2 id="conditionDisplay" class="text-xl font-medium capitalize mb-4">--</h2>
+                            <div class="text-6xl font-black tracking-tight text-gray-900 dark:text-white">
+                                <span id="tempDisplay">--</span><span class="text-2xl align-top font-normal temp-unit">°C</span>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4 mt-8 pt-6 border-t border-gray-100 dark:border-gray-700">
+                            <div class="text-center">
+                                <p class="text-sm text-gray-500">Kelembapan</p>
+                                <p id="humidityDisplay" class="text-lg font-bold">--%</p>
+                            </div>
+                            <div class="text-center">
+                                <p class="text-sm text-gray-500">Angin</p>
+                                <p id="windDisplay" class="text-lg font-bold">-- m/s</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="absolute -bottom-10 -right-10 w-40 h-40 bg-primary opacity-5 rounded-full z-0"></div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-2 space-y-6">
+                
+                <div class="bg-white dark:bg-carddark rounded-2xl p-6 shadow-md">
+                    <h3 class="font-bold text-lg mb-4 flex items-center gap-2">
+                        <span class="w-2 h-6 bg-secondary rounded-full"></span>
+                        Prediksi 5 Hari
+                    </h3>
+                    
+                    <div id="loadingIndicator" class="hidden py-10 text-center">
+                        <div class="inline-block animate-spin rounded-full h-8 w-8 border-4 border-primary border-t-transparent"></div>
+                        <p class="mt-2 text-sm text-gray-500">Mengambil data...</p>
+                    </div>
+
+                    <div id="forecastContainer" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+                        </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl p-6 text-white shadow-lg">
+                        <h4 class="font-semibold opacity-90 mb-2">Saran Hari Ini</h4>
+                        <p id="weatherAdvice" class="text-sm leading-relaxed">Memuat saran...</p>
+                    </div>
+                    <div class="bg-white dark:bg-carddark rounded-2xl p-6 shadow-md border border-gray-100 dark:border-gray-700">
+                         <h4 class="font-semibold mb-2">Koordinat</h4>
+                         <p class="text-sm text-gray-500 mb-4">Lokasi stasiun cuaca terdekat.</p>
+                         <div class="flex justify-between items-center bg-gray-50 dark:bg-gray-800 p-3 rounded-lg">
+                             <span class="text-xs font-mono">LAT: <span id="latDisplay">0.00</span></span>
+                             <span class="text-xs font-mono">LON: <span id="lonDisplay">0.00</span></span>
+                         </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <footer class="text-center py-6 text-sm text-gray-400">
+        &copy; 2025 AfifWeather Project. Data by OpenWeatherMap.
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
