@@ -12,37 +12,37 @@
 
 [cite_start]Aplikasi ini telah memenuhi seluruh spesifikasi tugas akhir, meliputi:
 
-### [cite_start]1. Current Weather Display
-- [cite_start]Menampilkan suhu, kelembapan (*humidity*), dan kecepatan angin (*wind speed*)[cite: 147].
-- [cite_start]Ikon kondisi cuaca dinamis.
-- [cite_start]Penunjuk lokasi (Kota, Negara) dan *timestamp* pembaruan data.
-- [cite_start]**Real-time Updates:** Data diperbarui otomatis setiap 5 menit.
+###1. Current Weather Display
+- Menampilkan suhu, kelembapan (*humidity*), dan kecepatan angin (*wind speed*)[cite: 147].
+- Ikon kondisi cuaca dinamis.
+- Penunjuk lokasi (Kota, Negara) dan *timestamp* pembaruan data.
+- **Real-time Updates:** Data diperbarui otomatis setiap 5 menit.
 
-### [cite_start]2. 5-Day Forecast
-- [cite_start]Prediksi cuaca harian untuk 5 hari ke depan.
-- [cite_start]Menampilkan ikon cuaca dan deskripsi singkat.
+### 2. 5-Day Forecast
+- Prediksi cuaca harian untuk 5 hari ke depan.
+- Menampilkan ikon cuaca dan deskripsi singkat.
 - Menampilkan estimasi suhu dalam format grid yang rapi.
 
-### [cite_start]3. Pencarian & Lokasi
-- [cite_start]**Search Functionality:** Pencarian cuaca berdasarkan nama kota.
-- [cite_start]**Auto-complete:** Saran nama kota muncul otomatis saat mengetik.
-- [cite_start]**Favorites:** Fitur untuk menyimpan kota favorit menggunakan *Local Storage* browser.
+### 3. Pencarian & Lokasi
+- **Search Functionality:** Pencarian cuaca berdasarkan nama kota.
+- **Auto-complete:** Saran nama kota muncul otomatis saat mengetik.
+- **Favorites:** Fitur untuk menyimpan kota favorit menggunakan *Local Storage* browser.
 
-### [cite_start]4. Fitur Interaktif
-- [cite_start]**Unit Toggle:** Kemampuan mengubah satuan suhu antara Celsius dan Fahrenheit.
-- [cite_start]**Theme Toggle:** Mode Gelap (*Dark Mode*) dan Terang (*Light Mode*).
-- [cite_start]**Manual Refresh:** Tombol untuk memperbarui data seketika.
-- [cite_start]**Loading Indicators:** Indikator visual saat data sedang diambil dari API.
+### 4. Fitur Interaktif
+- **Unit Toggle:** Kemampuan mengubah satuan suhu antara Celsius dan Fahrenheit.
+- **Theme Toggle:** Mode Gelap (*Dark Mode*) dan Terang (*Light Mode*).
+- **Manual Refresh:** Tombol untuk memperbarui data seketika.
+- **Loading Indicators:** Indikator visual saat data sedang diambil dari API.
 
 ## 🛠️ Teknologi yang Digunakan
 
 * **HTML5** - Struktur semantik halaman.
 * **CSS3 (Tailwind CSS)** - Framework CSS untuk *styling* responsif dan modern.
 * **JavaScript (ES6+)** - Logika aplikasi utama.
-    * [cite_start]**Fetch API** - Pengganti modern XMLHttpRequest untuk request HTTP.
+    * **Fetch API** - Pengganti modern XMLHttpRequest untuk request HTTP.
     * **Async/Await** - Penanganan proses *asynchronous* yang lebih bersih.
     * **DOM Manipulation** - Memperbarui tampilan secara dinamis.
-* [cite_start]**OpenWeatherMap API** - Penyedia layanan data cuaca (REST API).
+* **OpenWeatherMap API** - Penyedia layanan data cuaca (REST API).
 
 ## 📂 Struktur File
 
